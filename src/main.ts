@@ -1,16 +1,16 @@
 import Fastify from 'fastify';
 import registerRoutes from './router/index.js'
 
-const fastify = Fastify({logger: true});
+const instance = Fastify({logger: true});
 
-fastify.register(registerRoutes, {prefix: '/api'});
+instance.register(registerRoutes, {prefix: '/api'});
 
 const start = async () => {
     try {
-        await fastify.listen({port: 3000});
+        await instance.listen({port: 3000});
         console.log('Server running at http://localhost:3000');
     } catch (err) {
-        fastify.log.error(err);
+        instance.log.error(err);
         process.exit(1);
     }
 };
