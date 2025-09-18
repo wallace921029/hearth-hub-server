@@ -1,8 +1,8 @@
-import type {FastifyInstance} from "fastify";
+import type { FastifyInstance } from "fastify";
 
 function userRoutes(fastify: FastifyInstance) {
     fastify.get('/', async (request, reply) => {
-        return {message: 'Hello Fastify + TypeScript!'};
+        return { message: 'Hello Fastify + TypeScript!' };
     })
 }
 
