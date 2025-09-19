@@ -6,9 +6,9 @@ import jwt from '@fastify/jwt'
 
 dotenv.config();
 
-const fastify = Fastify({logger: false});
+const fastify = Fastify({ logger: false });
 
-fastify.register(registerRoutes, {prefix: '/api'});
+fastify.register(registerRoutes, { prefix: '/api' });
 fastify.register(mysql, {
     promise: true,
     connectionString: `mysql://${process.env.MYSQL_USER}:${process.env.MYSQL_PASSWORD}@${process.env.MYSQL_HOST}:${process.env.MYSQL_PORT}/family`,
@@ -19,7 +19,7 @@ fastify.register(jwt, {
 
 const start = async () => {
     try {
-        await fastify.listen({port: 3000});
+        await fastify.listen({ port: 3000 });
         console.log('Server running at http://localhost:3000');
     } catch (err) {
         fastify.log.error(err);

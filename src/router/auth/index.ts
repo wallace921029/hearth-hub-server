@@ -1,7 +1,7 @@
-import type {FastifyInstance} from "fastify";
-import type {SignInDTO, SignUpDTO} from "../../types/dto/auth.js";
-import {signInService, signUpService} from "../../service/auth/index.js";
-import {fail, success} from "../../utils/common-result/index.js";
+import type { FastifyInstance } from "fastify";
+import type { SignInDTO, SignUpDTO } from "../../types/dto/auth.js";
+import { signInService, signUpService } from "../../service/auth/index.js";
+import { fail, success } from "../../utils/common-result/index.js";
 
 function authRoutes(fastify: FastifyInstance) {
     fastify.post('/sign-up', async (request, reply) => {
@@ -30,8 +30,8 @@ function authRoutes(fastify: FastifyInstance) {
         }
     })
 
-    fastify.delete('/cancel', async (request, reply) => {
-        return {message: 'Hello Fastify + TypeScript!'};
+    fastify.get('/sign-out', async (request, reply) => {
+        return { message: 'Hello Fastify + TypeScript!' };
     })
 }
 
