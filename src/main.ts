@@ -3,10 +3,13 @@ import registerRoutes from './router/index.js'
 import mysql from '@fastify/mysql'
 import dotenv from 'dotenv'
 import jwt from '@fastify/jwt'
+import verifyTokenDecorator from './decorators/verify-token.ts'
 
 dotenv.config();
 
 const fastify = Fastify({ logger: false });
+
+verifyTokenDecorator(fastify)
 
 fastify.register(registerRoutes, { prefix: '/api' });
 fastify.register(mysql, {
@@ -16,6 +19,7 @@ fastify.register(mysql, {
 fastify.register(jwt, {
     secret: process.env.JWT_SECRET || "super-secret-key"
 })
+
 
 const start = async () => {
     try {

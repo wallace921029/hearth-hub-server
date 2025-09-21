@@ -1,19 +1,18 @@
-/** 待办事项表 */
-export interface TodoPO {
+export interface Todo {
     /** 待办事项ID，主键，自增 */
-    id: bigint; // 如果前端/JSON 处理大整数可能丢精度，可以改为 string
+    id: number;
     /** 标题 */
     title: string;
     /** 详细内容 */
     content?: string | null;
     /** 优先级等级，1~4 */
-    task_level: 1 | 2 | 3 | 4;
+    task_level: number;
     /** 到期时间 */
-    expiration?: Date | null;
+    expiration?: Date | string | null;
     /** 状态：0=未完成，1=已完成 */
-    task_status: 0 | 1;
+    task_status: number;
     /** 创建时间 */
-    created_at?: Date | null;
+    created_at?: Date | string | null;
     /** 最后更新时间 */
-    updated_at?: Date | null;
+    updated_at?: Date | string | null;
 }

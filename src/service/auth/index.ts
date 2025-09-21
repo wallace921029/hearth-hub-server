@@ -1,8 +1,8 @@
-import type {SignInDTO, SignUpDTO} from "../../types/dto/auth.js";
-import type {UserPO} from "../../types/po/UserPO.js";
-import {comparePassword, encryptPassword} from "../../utils/encrypt/index.js";
-import type {FastifyInstance} from "fastify";
-import {type RowDataPacket} from "@fastify/mysql";
+import type { SignInDTO, SignUpDTO } from "../../types/dto/auth.js";
+import type { UserPO } from "../../types/po/user.ts";
+import { comparePassword, encryptPassword } from "../../utils/encrypt/index.js";
+import type { FastifyInstance } from "fastify";
+import { type RowDataPacket } from "@fastify/mysql";
 
 
 interface CountRow extends RowDataPacket {
@@ -10,6 +10,7 @@ interface CountRow extends RowDataPacket {
 }
 
 interface userRowWithUsernameAndPwd extends RowDataPacket {
+    id: number;
     username: string;
     encrypted_password: string;
 }
@@ -63,7 +64,7 @@ async function signInService(fastify: FastifyInstance, signInDTO: SignInDTO) {
         // check the username and password is correct
         const connection = await fastify.mysql.getConnection()
         const [result] = await connection.query<userRowWithUsernameAndPwd[]>(
-            'SELECT username, encrypted_password FROM users WHERE username = ?',
+            'SELECT id, username, encrypted_password FROM users WHERE username = ?',
             [signInDTO.username]
         )
 
@@ -80,15 +81,16 @@ async function signInService(fastify: FastifyInstance, signInDTO: SignInDTO) {
 
         // jwt token generation can be added here
         return fastify.jwt.sign({
+            userId: user.id,
             username: user.username,
-        }, {expiresIn: '30 days'})
+        }, { expiresIn: '30 days' })
 
     } catch (error) {
         throw error
     }
 }
 
-export {
+export default {
     checkUserExists,
     signUpService,
     signInService
