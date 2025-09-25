@@ -11,9 +11,8 @@ declare module "fastify" {
 
     interface FastifyRequest {
         user: {
-            id: number;
+            userId: number;
             username: string;
-            role: string;
         };
     }
 }

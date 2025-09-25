@@ -4,6 +4,7 @@ import authService from "../../service/auth/index.js";
 import { fail, success } from "../../utils/common-result/index.js";
 
 function authRoutes(fastify: FastifyInstance) {
+    /** sign up */
     fastify.post('/sign-up', async (request, reply) => {
         const body = request.body as SignUpDTO;
         try {
@@ -17,6 +18,7 @@ function authRoutes(fastify: FastifyInstance) {
         }
     })
 
+    /** sign in */
     fastify.post('/sign-in', async (request, reply) => {
         const body = request.body as SignInDTO
         try {
@@ -30,8 +32,9 @@ function authRoutes(fastify: FastifyInstance) {
         }
     })
 
+    /** sign out */
     fastify.get('/sign-out', async (request, reply) => {
-        return { message: 'Hello Fastify + TypeScript!' };
+        return success(null, 'User signed out successfully')
     })
 }
 

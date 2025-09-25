@@ -15,6 +15,7 @@ interface userRowWithUsernameAndPwd extends RowDataPacket {
     encrypted_password: string;
 }
 
+/** check if user exists */
 async function checkUserExists(fastify: FastifyInstance, username: string): Promise<boolean> {
     const connection = await fastify.mysql.getConnection()
     const [result, fields] = await connection.query<CountRow[]>(
@@ -25,6 +26,7 @@ async function checkUserExists(fastify: FastifyInstance, username: string): Prom
     return (result[0]?.count ?? 0) > 0
 }
 
+/** sign up service */
 async function signUpService(fastify: FastifyInstance, signUpDto: SignUpDTO) {
     // check if user exists
     const isExist = await checkUserExists(fastify, signUpDto.username)
@@ -59,6 +61,7 @@ async function signUpService(fastify: FastifyInstance, signUpDto: SignUpDTO) {
     }
 }
 
+/** sign in service */
 async function signInService(fastify: FastifyInstance, signInDTO: SignInDTO) {
     try {
         // check the username and password is correct
